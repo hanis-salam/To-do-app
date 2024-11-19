@@ -37,6 +37,7 @@ export default function Home() {
       title: "",
       description: "",
       isCheck: false, //default value
+      completedAt: "",
     };
     setEditingTaskId(newTask.id);
     setTodos((prev) => [newTask, ...prev]);
@@ -46,7 +47,13 @@ export default function Home() {
   const CheckDone = (id: number, checked: boolean) => {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, isCheck: checked } : todo
+        todo.id === id
+          ? {
+              ...todo,
+              isCheck: checked,
+              completedAt: checked ? new Date().toISOString() : undefined,
+            }
+          : todo
       )
     );
   };

@@ -3,4 +3,5 @@ export interface ToDo {
   title: string;
   description: string;
   isCheck: boolean;
+  completedAt?: string | undefined;
 }

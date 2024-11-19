@@ -5,14 +5,14 @@ interface HeaderProps {
 }
 function Header(props: HeaderProps) {
   return (
-    <header className="bg-[#F9D69E] drop-shadow-lg mb-4 sticky top-0">
+    <header className="bg-blue-500 drop-shadow-lg mb-4 sticky top-0">
       <nav className="mx-auto flex  items-center justify-between p-6">
         <div className="flex lg:flex-1">
-          <Link href={"/"} className="font-semibold text-gray-700 text-lg">
+          <Link href={"/"} className="font-semibold text-white text-2xl">
             <span>To-Do App</span>
           </Link>
         </div>
-        <button className="text-gray-700" onClick={props.addTask}>
+        <button className="text-white" onClick={props.addTask}>
           <AiFillPlusCircle size={30} />
         </button>
       </nav>
