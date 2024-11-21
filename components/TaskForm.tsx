@@ -20,6 +20,7 @@ function TaskForm({
   const [taskTitle, setTaskTitle] = useState(title);
   const [taskDescription, setTaskDescription] = useState(description);
   const [error, setError] = useState<string | null>(null); // For error handling
+  const [isDisable, setIsDisable] = useState<boolean>(true); // set to false only when the onchange is trigger
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +36,18 @@ function TaskForm({
     handleUpdateTask(taskTitle.trim(), taskDescription.trim());
   };
 
+  const addTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setIsDisable(false); // the value has change
+    setTaskTitle(e.target.value);
+  };
+
+  const addDescription = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setIsDisable(false); // the value has change
+    setTaskDescription(e.target.value);
+  };
+
   return (
     <form onSubmit={handleSave} className="p-4 bg-gray-100 rounded-md">
       {error && (
@@ -43,7 +56,7 @@ function TaskForm({
       <input
         type="text"
         value={taskTitle}
-        onChange={(e) => setTaskTitle(e.target.value)}
+        onChange={(e) => addTitle(e)}
         placeholder="e.g., Grocery shopping"
         className={`block mb-2 p-2 border border-gray-400 rounded-md w-full ${
           error && !taskTitle.trim() ? "border-red-500" : ""
@@ -52,7 +65,7 @@ function TaskForm({
       <input
         type="text"
         value={taskDescription}
-        onChange={(e) => setTaskDescription(e.target.value)}
+        onChange={(e) => addDescription(e)}
         placeholder="e.g., Buy fruits, vegetables, and milk"
         className={`block mb-2 p-2 border border-gray-400 rounded-md w-full ${
           error && !taskDescription.trim() ? "border-red-500" : ""
@@ -77,12 +90,24 @@ function TaskForm({
           </button>
         )}
 
-        <button
-          type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-300"
-        >
-          Save
-        </button>
+        {isDisable ? (
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-300
+             disabled:bg-gray-500"
+            disabled
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-500 focus:ring-2 focus:ring-blue-300 
+            "
+          >
+            Save
+          </button>
+        )}
       </div>
     </form>
   );
